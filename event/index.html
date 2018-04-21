@@ -28,6 +28,12 @@
                         </ul>
                     </form>
                </div>
+               <div class="col-xs-4">
+                    <button v-on:click="num += 1"> 
+                        {{num}} - <i class="glyphicon glyphicon-icon glyphicon-thumbs-up"></i>  
+                    </button>                  
+                                    
+               </div>
             </div>
         </div>
 
@@ -39,12 +45,14 @@
             el:'#main',
             data:{
                people:['Lynda', 'Isabella', 'Abel'],
-               name: ''
+               name: '',
+               num: 0,
             },
             methods:{
                 addName: function(){
                     this.people.push(this.name);
                     this.name = '';
+
                 }
             }
         });
