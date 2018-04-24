@@ -11,8 +11,16 @@
     <div id="main" class="container">
        <div class="row">
            <div class="col-sm-4">
-               <h1>Lista VueJS - AJAX Filter</h1>
-               
+               <h1>Lista VueJS - Filter</h1>
+               <button class="btn btn-primary" v-on:click="getUsers" v-if="!lists.length"> Listar </button>
+               <ul class="list-group" v-else>
+                    <li class="list-group-item">
+                        <input type="text" placeholder="Buscar" class="form-control" v-model="name">
+                    </li>
+                   <li class="list-group-item" v-for="item in searchUser">
+                       {{item.name.first}} {{item.name.last}}
+                   </li>
+               </ul>
            </div>
            <div class="col-sm-8">
                <h1>JSON</h1>
@@ -26,19 +34,26 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script type="text/javascript">
-       
+        var urlUsers = 'https://randomuser.me/api/?results=10';
+      
         new Vue({
             el:'#main',
-            created: function(){
-                this.getUsers();
-            },
             data:{
-                
+                lists:[],
+                name : ''
             },            
             methods:{
-              
-              
+               getUsers: function(){
+                   axios.get(urlUsers).then(response => {
+                       this.lists = response.data.results;
+                   });
+               }
                 
+            },
+            computed:{
+                searchUser: function(){
+                    return this.lists.filter((item) => item.name.first.includes(this.name));
+                }
             }
         });
     </script>
