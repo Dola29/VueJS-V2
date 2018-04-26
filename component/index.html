@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueJS - AJAX || @Dola29</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main" class="container">
+       <div class="row">
+           <div class="col-sm-4">
+               <h1>Lista de usuarios </h1>
+               <common-list v-bind:lists="users"></common-list>
+           </div>
+           <div class="col-sm-4">
+            <h1>Lista de fotos </h1>
+            <common-list v-bind:lists="photos"></common-list>
+        </div>
+           <div class="col-sm-8">
+               <h1>JSON</h1>
+               <pre>
+                   {{$data}}
+               </pre>
+           </div>
+       </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script type="text/javascript">
+
+        Vue.component('common-list',{
+            props : ['lists'],
+            template :`
+                <ul class="list-group">
+                   <li class="list-group-item" v-for="item in lists">
+                       {{item.name.first}}
+                   </li>
+                </ul>
+            `,
+        });
+        var urlUsers = 'https://randomuser.me/api/?results=10';
+    
+        new Vue({
+            el:'#main',
+            created: function(){
+                this.getUsers();
+            },
+            data:{
+                users:[],
+                photos: [
+                    {"name": {
+                            "title": "ms",
+                            "first": "uno",
+                            "last": "turner"
+                        }
+                    },
+                    {"name": {
+                            "title": "mr",
+                            "first": "dos",
+                            "last": "james"
+                        }
+                    },
+                ]
+            },            
+            methods:{
+               getUsers: function(){
+                   axios.get(urlUsers).then(response => {
+                       this.users = response.data.results;
+                   });
+               }
+                
+            }
+        });
+    </script>
+</body>
+</html>
