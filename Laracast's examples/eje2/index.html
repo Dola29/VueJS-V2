@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Eje2</title>
+
+    <style>
+        .color-red{color: red;}
+        .color-blue{color: blue;}
+        .is-loading{background: red;}
+    </style>
+</head>
+<body>
+
+    <div id="root">
+       
+       <button @click="" :title="tittle">Hover Over Me</button>
+
+       <h1 :class="className"> Hola Puto Mundo</h1>
+
+       <button :class="{'is-loading':isloading}" @click="toogleClass">Click Me</button>
+    </div>    
+    
+    
+    <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+
+            el:'#root',
+
+            data:{
+                tittle:'now the tittle is being setting thru JS.',
+                className:'color-red',
+                isloading:false
+            },
+            methods:{
+                toogleClass(){
+                    this.isloading = true;
+                }
+            },
+    
+
+        })
+    </script>
+</body>
+</html>
